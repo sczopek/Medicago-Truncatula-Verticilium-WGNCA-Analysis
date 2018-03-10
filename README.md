@@ -1,6 +1,8 @@
 # Medicago Truncatula Verticillium WGCNA Analysis
 
-This software uses performs WGCNA analysis on Medicago Truncatula sequence data.  Since WGCNA analysis is computationally intensive the output files are provided, so there isn't a need to run this software on a cluster or on the cloud.  An overview for each file and the sample data is given, followed by some project notes.
+This software uses performs WGCNA analysis on Medicago Truncatula sequence data.  WGCNA (Weighted Genome Coexpression Network Analysis) divides the RNA sequences into clusters that share a common count expression profile.  This cluster's count expression profile is vector, and this vector's coordinates are the average RNA counts for each experiment in the trial.  (Each cluster is characterized by a unique expression profile.)  The goal is to identify the clusters associated with the plant's fungal immune response providing a list of immunity candidate genes.
+
+Since WGCNA analysis is computationally intensive the output files are provided, so there isn't a need to run this software on a cluster or on the cloud.  An overview for each file and the sample data is given, followed by some project notes.
 
 
 
@@ -16,7 +18,7 @@ The screened and preprocessed data is fed into the main WGNCA algorithm.  This a
 
 ### CompareClinicalTraits.R
 
-Each cluster is matched with a specific clinical trait and treatment.  Identifying the clusters whose genes turn on and off in response to the viral infection is the goal of the analysis.
+Each cluster is matched with a specific clinical treatment.  Identifying the clusters whose genes turn on and off in response to the viral infection is the goal of the analysis.
 
 ## R Data
 
@@ -36,31 +38,28 @@ Output file that graphically explores the network data.
 
 ### HeatmapDifferentialExpression.pdf
 
-A strong red or strong green color indicates a strong correlation between a cluster's average expression profile and a speicific clinical treament.  Clinical treatments is a formal term that might mean comparing the fungal immune and the fungal susceptible plants different responses to infection.  The differentially expressed genes associated with this clinical trait might be associated with fungal immunity.  This heatmap help identifies which cluster is associated with what clinical trait.
+A strong red or strong green color indicates a strong correlation between a cluster's average expression profile and a speicific clinical contrast.  Clinical contrast is a formal term that might mean comparing the different responses of fungal immune and the fungal susceptible plants after being infected with the Verticillium fungus.  The differentially expressed genes associated with this clinical contrast may be associated with fungal immunity.  This heatmap help identifies which cluster is associated with what clinical contrast.
 
 ## Input Files
 ### MtrEILNormalized.txt
 
-The normalized RNA counts.
+The normalized RNA Illumina sequence count data.
 
 ### differentiallyExpressedContrast.xlsx
 
 The Clinical contrasts used for cluster association.
 
 
-### Summary: 
-This module implements the gibbs sampler algorithm, which is used to find common motifs in DNA sequences.  This probablistic search algorithm runs in polynomial time, which is an improvement over the brute force algorithm's exponential running time.
-          
           
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.  All files can be run locally except for NetworkConstruction.R, which must be instead run on the cloud or a computing cluster.
 
 ### Prerequisites
 
 R Statistical Software Suite
 
-Ability to send the job to a computing cluster or the cloud.  Eight 4-GB nodes are recommended for this job.  If this isn't possible, the output files are included.
+The output files are included since a computing cluster or the cloud might not be accessable.  Six 8-GB nodes are recommended for this job, should you choose to run this on the cloud.
 
 ### Installing
 
@@ -68,19 +67,14 @@ A step by step series of examples that tell you have to get a development env ru
 
 Download and save all files to a local directory.
 
-Run R-package.
+In R run Run LoadAndCluster.R and CompareClinicalTraits.R.  If these programs are run in R-studio line enabling the multi-threading capability might throw an error preventing execution.
 
-
-## Running the tests
-
-This project was tested function by function as part of a CourseEra project using their web testing service.
-
-The algorithm locates and prints each binding site.  You can compare the algorithm's answer to the real answer, by opening the solution file.  In that file the real motif binding site appears in capital letters.
+Have fun exploring the graphs.
 
 
 ## Versioning
 
-v 0.1
+v 0.2
 
 ## Authors
 
@@ -92,5 +86,5 @@ This project is free to copy and distribute.
 
 ## Acknowledgments
 
-* I would like to thank my advisor Sergey Nuzdhin for giving me the chance to learn about genetics.
-* Thanks to CourseEra I know more about motif finding.
+* I would like to thank my advisor Sergey Nuzdhin for giving me the chance to learn about genetics and assigning me this project.
+* I would like to thank NIH for the funding to work on this project.
